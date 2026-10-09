@@ -1,18 +1,14 @@
-## Getting Started
+## Enunciado 
+En un tablero de ajedrez de tamaño 8 x 8, un caballo se encuentra fijo en una de las posiciones 
+del borde del tablero, por ejemplo, 1a, 1e, o 5a, entre otros, siendo el índice numérico asignado a 
+las filas y el índice nominal a las columnas. 
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+El objetivo de la práctica es colocar 7 reinas en el tablero, de forma que ninguna de las reinas se 
+ataque entre sí y ninguna pueda ser capturada por el caballo o atacar al caballo. Recordemos 
+que una reina ataca a cualquier otra pieza que se encuentre en su misma fila, columna o 
+diagonal, y que el caballo ataca a las casillas situadas a “salto de caballo” (en forma de L).
 
-## Folder Structure
+## Explicación del algoritmo
+Se utiliza la técnica de backtracking para comprobar si al menos 7 reinas están presentes en
+el tablero, con la condición extra de un caballo en una posición fija del mismo.
 
-The workspace contains two folders by default, where:
-
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
