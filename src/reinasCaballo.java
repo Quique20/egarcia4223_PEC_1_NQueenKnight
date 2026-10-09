@@ -1,5 +1,7 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import Classes.Posicion;
@@ -11,15 +13,13 @@ public class reinasCaballo {
     private static Set<Integer> _negDiag; // (r - c) Diagonal negativa de las reinas
     private static Set<Integer> _posDiag; // (r + c ) Diagonal positiva de las reinas
     private static Set<Posicion> _knightPos; // Posiciones precalculadas del caballo
-    private static final Set<Character> _traduccion = new HashSet(
-            Arrays.asList('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'));
-    private static boolean[][] tablero = new boolean[_tamanyoTablero][_tamanyoTablero]; // Tablero base
     private static Posicion _caballo;
+    private static List<Posicion> reinas = new ArrayList<Posicion>();
 
     private static int count = 0;
 
     // Test variables
-    private static final String posicionCaballoTest = "1h";
+    private static final String posicionCaballoTest = "8d";
 
     public static void main(String args[]) {
         // Inicializamos los restricciones
@@ -40,6 +40,8 @@ public class reinasCaballo {
         if (fila == _tamanyoTablero) {
             if (reinasColocadas == 7) {
                 count++;
+                System.out.println("Solución " + count + ":");
+                imprimirTablero();
             }
             return;
         }
@@ -60,6 +62,7 @@ public class reinasCaballo {
                     || _posDiag.contains(fila + j)
                     || _knightPos.contains(new Posicion(fila, j))
                     || j == _caballo.getCol()
+                    || fila == _caballo.getFila()
                     || Math.abs(fila - _caballo.getFila()) == Math.abs(j - _caballo.getCol())) {
                 continue;
             }
@@ -67,9 +70,11 @@ public class reinasCaballo {
             _cols.add(j);
             _negDiag.add(fila - j);
             _posDiag.add(fila + j);
+            reinas.add(new Posicion(fila, j));
 
             SolveNQueens(fila + 1, reinasColocadas + 1);
             // Backtracking - quitamos los valores
+            reinas.remove(reinas.size() - 1);
             _cols.remove(j);
             _negDiag.remove(fila - j);
             _posDiag.remove(fila + j);
@@ -112,4 +117,21 @@ public class reinasCaballo {
         return new Posicion(fila, columna);
     }
 
+
+    private static void imprimirTablero() {
+    for (int f = 0; f < _tamanyoTablero; f++) {
+        for (int c = 0; c < _tamanyoTablero; c++) {
+            if (f == _caballo.getFila()
+                    && c == _caballo.getCol()) {
+                System.out.print(" C ");
+            } else if (reinas.contains(new Posicion(f, c))) {
+                System.out.print(" R ");
+            } else {
+                System.out.print(" . ");
+            }
+        }
+        System.out.println();
+    }
+    System.out.println();
+}
 }
