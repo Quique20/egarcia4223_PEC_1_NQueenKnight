@@ -19,7 +19,7 @@ public class reinasCaballo {
     private static int count = 0;
 
     // Test variables
-    private static final String posicionCaballoTest = "8d";
+    private static final String posicionCaballoTest = "1h";
 
     public static void main(String args[]) {
         // Inicializamos los restricciones
@@ -57,13 +57,7 @@ public class reinasCaballo {
 
         for (int j = 0; j < _tamanyoTablero; j++) {
             // Hay una reina que vulnera, continua
-            if (_cols.contains(j)
-                    || _negDiag.contains(fila - j)
-                    || _posDiag.contains(fila + j)
-                    || _knightPos.contains(new Posicion(fila, j))
-                    || j == _caballo.getCol()
-                    || fila == _caballo.getFila()
-                    || Math.abs(fila - _caballo.getFila()) == Math.abs(j - _caballo.getCol())) {
+            if (esVulnerable(fila,j)) {
                 continue;
             }
 
@@ -119,19 +113,29 @@ public class reinasCaballo {
 
 
     private static void imprimirTablero() {
-    for (int f = 0; f < _tamanyoTablero; f++) {
-        for (int c = 0; c < _tamanyoTablero; c++) {
-            if (f == _caballo.getFila()
-                    && c == _caballo.getCol()) {
-                System.out.print(" C ");
-            } else if (reinas.contains(new Posicion(f, c))) {
-                System.out.print(" R ");
-            } else {
-                System.out.print(" . ");
+        for (int f = 0; f < _tamanyoTablero; f++) {
+            for (int c = 0; c < _tamanyoTablero; c++) {
+                if (f == _caballo.getFila()
+                        && c == _caballo.getCol()) {
+                    System.out.print(" C ");
+                } else if (reinas.contains(new Posicion(f, c))) {
+                    System.out.print(" R ");
+                } else {
+                    System.out.print(" . ");
+                }
             }
+            System.out.println();
         }
         System.out.println();
     }
-    System.out.println();
-}
+
+    private static boolean esVulnerable(int fila, int j){
+        return (_cols.contains(j)
+                    || _negDiag.contains(fila - j)
+                    || _posDiag.contains(fila + j)
+                    || _knightPos.contains(new Posicion(fila, j))
+                    || j == _caballo.getCol()
+                    || fila == _caballo.getFila()
+                    || Math.abs(fila - _caballo.getFila()) == Math.abs(j - _caballo.getCol()));
+    }
 }
